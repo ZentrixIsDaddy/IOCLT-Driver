@@ -1,0 +1,19 @@
+﻿  Building 'IOCTL DRV' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
+  Stamping x64\Release\IOCTLDRV.inf
+  Stamping [Version] section with DriverVer=08/25/2022,18.0.46.286
+  IOCTL DRV.vcxproj -> C:\Users\finle\source\repos\IOCTL DRV\x64\Release\IOCTLDRV.sys
+  Driver is 'Universal'.
+  .........................
+  Signability test complete.
+  
+  Errors:
+  None
+  
+  Warnings:
+  None
+  
+  Catalog generation complete.
+  C:\Users\finle\source\repos\IOCTL DRV\x64\Release\IOCTL DRV\ioctldrv.cat
+  Done Adding Additional Store
+  Successfully signed: C:\Users\finle\source\repos\IOCTL DRV\x64\Release\IOCTL DRV\ioctldrv.cat
+  

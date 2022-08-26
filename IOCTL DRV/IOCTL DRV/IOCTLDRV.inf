@@ -1,0 +1,77 @@
+;
+; IOCTLDRV.inf
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=System ; TODO: specify appropriate Class
+ClassGuid={4d36e97d-e325-11ce-bfc1-08002be10318} ; TODO: specify appropriate ClassGuid
+Provider=%ManufacturerName%
+CatalogFile=IOCTLDRV.cat
+DriverVer= ; TODO: set DriverVer in stampinf property pages
+PnpLockdown=1
+
+[DestinationDirs]
+DefaultDestDir = 12
+IOCTLDRV_Device_CoInstaller_CopyFiles = 11
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+IOCTLDRV.sys  = 1,,
+WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll=1 ; make sure the number matches with SourceDisksNames
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName%=Standard,NT$ARCH$
+
+[Standard.NT$ARCH$]
+%IOCTLDRV.DeviceDesc%=IOCTLDRV_Device, Root\IOCTLDRV ; TODO: edit hw-id
+
+[IOCTLDRV_Device.NT]
+CopyFiles=Drivers_Dir
+
+[Drivers_Dir]
+IOCTLDRV.sys
+
+;-------------- Service installation
+[IOCTLDRV_Device.NT.Services]
+AddService = IOCTLDRV,%SPSVCINST_ASSOCSERVICE%, IOCTLDRV_Service_Inst
+
+; -------------- IOCTLDRV driver install sections
+[IOCTLDRV_Service_Inst]
+DisplayName    = %IOCTLDRV.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\IOCTLDRV.sys
+
+;
+;--- IOCTLDRV_Device Coinstaller installation ------
+;
+
+[IOCTLDRV_Device.NT.CoInstallers]
+AddReg=IOCTLDRV_Device_CoInstaller_AddReg
+CopyFiles=IOCTLDRV_Device_CoInstaller_CopyFiles
+
+[IOCTLDRV_Device_CoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000, "WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll,WdfCoInstaller"
+
+[IOCTLDRV_Device_CoInstaller_CopyFiles]
+WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll
+
+[IOCTLDRV_Device.NT.Wdf]
+KmdfService =  IOCTLDRV, IOCTLDRV_wdfsect
+[IOCTLDRV_wdfsect]
+KmdfLibraryVersion = $KMDFVERSION$
+
+[Strings]
+SPSVCINST_ASSOCSERVICE= 0x00000002
+ManufacturerName="<Your manufacturer name>" ;TODO: Replace with your manufacturer name
+DiskName = "IOCTLDRV Installation Disk"
+IOCTLDRV.DeviceDesc = "IOCTLDRV Device"
+IOCTLDRV.SVCDESC = "IOCTLDRV Service"

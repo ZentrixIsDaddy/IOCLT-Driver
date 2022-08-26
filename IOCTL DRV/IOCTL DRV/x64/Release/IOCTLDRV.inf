@@ -1,0 +1,80 @@
+;
+; IOCTLDRV.inf
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=System ; TODO: specify appropriate Class
+ClassGuid={4d36e97d-e325-11ce-bfc1-08002be10318} ; TODO: specify appropriate ClassGuid
+Provider=%ManufacturerName%
+CatalogFile=IOCTLDRV.cat
+DriverVer = 08/25/2022,18.0.46.286
+PnpLockdown=1
+
+[DestinationDirs]
+DefaultDestDir = 12
+IOCTLDRV_Device_CoInstaller_CopyFiles = 11
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+IOCTLDRV.sys  = 1,,
+;
+
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName%=Standard,NTamd64
+
+[Standard.NTamd64]
+%IOCTLDRV.DeviceDesc%=IOCTLDRV_Device, Root\IOCTLDRV ; TODO: edit hw-id
+
+[IOCTLDRV_Device.NT]
+CopyFiles=Drivers_Dir
+
+[Drivers_Dir]
+IOCTLDRV.sys
+
+;-------------- Service installation
+[IOCTLDRV_Device.NT.Services]
+AddService = IOCTLDRV,%SPSVCINST_ASSOCSERVICE%, IOCTLDRV_Service_Inst
+
+; -------------- IOCTLDRV driver install sections
+[IOCTLDRV_Service_Inst]
+DisplayName    = %IOCTLDRV.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\IOCTLDRV.sys
+
+;
+;--- IOCTLDRV_Device Coinstaller installation ------
+;
+
+[IOCTLDRV_Device.NT.CoInstallers]
+AddReg=IOCTLDRV_Device_CoInstaller_AddReg
+CopyFiles=IOCTLDRV_Device_CoInstaller_CopyFiles
+
+[IOCTLDRV_Device_CoInstaller_AddReg]
+;
+
+
+[IOCTLDRV_Device_CoInstaller_CopyFiles]
+;
+
+
+[IOCTLDRV_Device.NT.Wdf]
+KmdfService =  IOCTLDRV, IOCTLDRV_wdfsect
+[IOCTLDRV_wdfsect]
+KmdfLibraryVersion = 1.15
+
+[Strings]
+SPSVCINST_ASSOCSERVICE= 0x00000002
+ManufacturerName="<Your manufacturer name>" ;TODO: Replace with your manufacturer name
+DiskName = "IOCTLDRV Installation Disk"
+IOCTLDRV.DeviceDesc = "IOCTLDRV Device"
+IOCTLDRV.SVCDESC = "IOCTLDRV Service"

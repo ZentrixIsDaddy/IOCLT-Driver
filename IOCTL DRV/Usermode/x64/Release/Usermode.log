@@ -1,0 +1,17 @@
+﻿  Usermode.cpp
+C:\Users\finle\source\repos\IOCTL DRV\Usermode\Usermode.cpp(75,23): warning C4244: '=': conversion from 'SIZE_T' to 'ULONG', possible loss of data
+C:\Users\finle\source\repos\IOCTL DRV\Usermode\Usermode.cpp(117,59): warning C4311: 'type cast': pointer truncation from 'BYTE *' to 'DWORD'
+C:\Users\finle\source\repos\IOCTL DRV\Usermode\Usermode.cpp(117,59): warning C4302: 'type cast': truncation from 'BYTE *' to 'DWORD'
+C:\Users\finle\source\repos\IOCTL DRV\Usermode\Usermode.cpp(55,22): warning C4244: '=': conversion from 'SIZE_T' to 'ULONG', possible loss of data
+C:\Users\finle\source\repos\IOCTL DRV\Usermode\Usermode.cpp(151): message : see reference to function template instantiation 'type Controller::ReadVirtualMemory<DWORD>(ULONG,ULONG,SIZE_T)' being compiled
+          with
+          [
+              type=DWORD
+          ]
+C:\Users\finle\source\repos\IOCTL DRV\Usermode\Usermode.cpp(50,9): warning C4101: 'Return': unreferenced local variable
+C:\Users\finle\source\repos\IOCTL DRV\Usermode\Usermode.cpp(50,17): warning C4101: 'Bytes': unreferenced local variable
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 73 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Usermode.vcxproj -> C:\Users\finle\source\repos\IOCTL DRV\x64\Release\Usermode.exe
